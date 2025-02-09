@@ -41,8 +41,32 @@ $ npm run test:cov
 ```
 
 ## Comando do Git
-- <span style="color: green">**git status**</span>: exibir o estado atual do repositório Git. Ele mostra quais alterações foram feitas nos arquivos, aquivos estão preparados para *commit* e quais não estão sendo rastreados pelo git.
+- <span style="color: green">**git status**</span> - exibir o estado atual do repositório Git. Ele mostra quais alterações foram feitas nos arquivos, aquivos estão preparados para *commit* e quais não estão sendo rastreados pelo git.
 
+    ### Sintaxe:
+    ```bash
+        git status
+    ```
+
+- <span style="color: green">**git add .**</span> - adiciona todas as alterações do diretório ao **staging area**, preparados para próximo *commit*. Isso inclui:
+
+    ### Sintaxe:
+    ```bash
+        git add .
+    ```
+
+    &#9989; Arquivos novos (não rastreados)
+    
+    &#9989; Arquivos modificados
+    
+    &#9989; Arquivos deletados
+
+- <span style="color: green">**git commit -m **</span> - criar um *commit* no Git, registrando as alterações que foram adicionadas ao staging area com *git add .*
+
+    ### Sintaxe:
+    ```bash
+        git commit -m "mensagem"
+    ```
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
