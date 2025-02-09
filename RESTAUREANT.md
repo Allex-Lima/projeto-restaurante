@@ -61,7 +61,7 @@ $ npm run test:cov
     
     &#9989; Arquivos deletados
 
-- <span style="color: green">**git commit -m **</span> - criar um *commit* no Git, registrando as alterações que foram adicionadas ao staging area com *git add .*
+- <span style="color: green">**git commit -m**</span> - criar um *commit* no Git, registrando as alterações que foram adicionadas ao staging area com *git add .*
 
     ### Sintaxe:
     ```bash
