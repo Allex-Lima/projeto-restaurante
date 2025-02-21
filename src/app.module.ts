@@ -4,12 +4,14 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { MesaModule } from './mesa/mesa.module';
 import { FuncionarioModule } from './funcionario/funcionario.module';
+import { VendaModule } from './venda/venda.module';
 
 @Module({
   imports: [
     DatabaseModule,
     FuncionarioModule,
     MesaModule,
+    VendaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

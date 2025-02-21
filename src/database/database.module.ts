@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FuncionarioModule } from 'src/funcionario/funcionario.module';
 import { MesaModule } from 'src/mesa/mesa.module';
+import { VendaModule } from 'src/venda/venda.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MesaModule } from 'src/mesa/mesa.module';
     }),
     FuncionarioModule,
     MesaModule,
+    VendaModule,
   ],
 })
 export class DatabaseModule {}

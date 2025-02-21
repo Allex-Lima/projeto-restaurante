@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Venda } from "src/venda/entities/venda.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('funcionarios')
 export class Funcionario {
@@ -26,4 +27,5 @@ export class Funcionario {
 
     @UpdateDateColumn( { type: 'date', default: () => 'CURRENT_TIMESTAMP' } )
     dateAtualizacao: Date;
+
 }
