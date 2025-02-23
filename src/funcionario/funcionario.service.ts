@@ -14,8 +14,8 @@ export class FuncionarioService {
         return 'Está ação adiciona um novo funcionário.';
     }
 
-    findAllFincionario() {
-        return 'Está ação retorna todos os funcionários.';
+    async findAllFincionario(): Promise<Funcionario []> {
+        return await this.funcionarioRepository.find();
     }
 
     findOneFuncionario(funcionarioCodigo: string) {
