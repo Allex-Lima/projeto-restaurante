@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FuncionarioModule } from 'src/funcionario/funcionario.module';
+import { ItemVendaModule } from 'src/item-venda/itemVenda.module';
 import { MesaModule } from 'src/mesa/mesa.module';
 import { ProdutoModule } from 'src/produto/produto.module';
 import { VendaModule } from 'src/venda/venda.module';
@@ -24,6 +25,7 @@ import { VendaModule } from 'src/venda/venda.module';
       inject: [ConfigService],
     }),
     FuncionarioModule,
+    ItemVendaModule,
     MesaModule,
     ProdutoModule,
     VendaModule,

@@ -6,11 +6,13 @@ import { MesaModule } from './mesa/mesa.module';
 import { FuncionarioModule } from './funcionario/funcionario.module';
 import { VendaModule } from './venda/venda.module';
 import { ProdutoModule } from './produto/produto.module';
+import { ItemVendaModule } from './item-venda/itemVenda.module';
 
 @Module({
   imports: [
     DatabaseModule,
     FuncionarioModule,
+    ItemVendaModule,
     MesaModule,
     ProdutoModule,
     VendaModule,
