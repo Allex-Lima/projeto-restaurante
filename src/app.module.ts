@@ -7,9 +7,11 @@ import { FuncionarioModule } from './funcionario/funcionario.module';
 import { VendaModule } from './venda/venda.module';
 import { ProdutoModule } from './produto/produto.module';
 import { ItemVendaModule } from './item-venda/itemVenda.module';
+import { ComissaoModule } from './comissoes/comissao.module';
 
 @Module({
   imports: [
+    ComissaoModule,
     DatabaseModule,
     FuncionarioModule,
     ItemVendaModule,
