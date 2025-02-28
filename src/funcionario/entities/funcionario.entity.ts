@@ -1,3 +1,4 @@
+import { Comissao } from "src/comissoes/entities/comissao.entity";
 import { Venda } from "src/venda/entities/venda.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -27,5 +28,11 @@ export class Funcionario {
 
     @UpdateDateColumn( { type: 'date', default: () => 'CURRENT_TIMESTAMP' } )
     dateAtualizacao: Date;
+
+    @OneToMany(() => Venda, (venda) => venda.funcionario)
+    vendas: Venda[];
+
+    @OneToMany(() => Comissao, (comissao) => comissao.funcionario)
+    comissoes: Comissao[];
 
 }

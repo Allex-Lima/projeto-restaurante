@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Funcionario } from "src/funcionario/entities/funcionario.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('comissoes')
 export class Comissao {
@@ -20,5 +21,8 @@ export class Comissao {
 
     @UpdateDateColumn({ type: 'date', default: () => 'CURRENT_TIMESTAMP'})
     dataAtualizacao: Date;
+
+    @ManyToOne(() => Funcionario, (funcionario) => funcionario.comissoes, { onDelete: 'CASCADE' })
+    funcionario: Funcionario;
 
 }

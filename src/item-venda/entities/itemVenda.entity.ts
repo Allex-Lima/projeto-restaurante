@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Produto } from "src/produto/entities/produto.entity";
+import { Venda } from "src/venda/entities/venda.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('itemVenda')
 export class ItemVenda {
@@ -24,7 +26,12 @@ export class ItemVenda {
     @CreateDateColumn( { type: 'date', default: () => 'CURRENT_TIMESTAMP' } )
     dataCriacao: Date;
 
-
     @UpdateDateColumn( { type: 'date', default: () => 'CURRENT_TIMESTAMP' })
     dataAtualizacao: Date;
+
+    @ManyToOne(() => Produto, (produto) => produto.itensVenda, { onDelete: 'CASCADE'})
+    produto: Produto;
+
+    @ManyToOne(() => Venda, (venda) => venda.itensVenda)
+    venda: Venda;
 }

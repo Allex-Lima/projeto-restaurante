@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Venda } from "src/venda/entities/venda.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('mesas')
 export class Mesa {
@@ -17,4 +18,8 @@ export class Mesa {
 
     @UpdateDateColumn({ type: 'date', default: () => 'CURRENT_TIMESTAMP'})
     dataAtualizacao: Date;
+
+    @OneToMany(() => Venda, (venda) => venda.mesa)
+    vendas: Venda[];
+
 }
