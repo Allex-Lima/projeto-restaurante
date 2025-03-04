@@ -8,8 +8,10 @@ export class MesaController {
   constructor(private readonly mesaService: MesaService) {}
 
   @Post()
-  create(@Body() createMesaDto: CreateMesaDto) {
-    return this.mesaService.create(createMesaDto);
+  async create(@Body() createMesaDto: CreateMesaDto) {
+    const resultMesa = await this.mesaService.createServiceMesa(createMesaDto);
+    
+    return resultMesa;
   }
 
   @Get()

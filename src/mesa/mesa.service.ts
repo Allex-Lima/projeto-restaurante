@@ -1,11 +1,31 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { UpdateMesaDto } from './dto/update-mesa.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Mesa } from './entities/mesa.entity';
+import { Repository } from 'typeorm';
+import { MesaType } from 'src/types/mesa.type';
 
 @Injectable()
 export class MesaService {
-  create(createMesaDto: CreateMesaDto) {
-    return 'This action adds a new mesa';
+  constructor(
+    @InjectRepository(Mesa) 
+    private readonly mesaService: Repository<Mesa>,
+  ) {}
+
+  async createServiceMesa(createMesaDto: CreateMesaDto): Promise<MesaType> {
+    try {
+      const mesa = this.mesaService.create(createMesaDto);
+
+      await this.mesaService.save(mesa);
+
+      return {
+        message: 'Mesa criada com sucesso.',
+      };
+
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   findAll() {
