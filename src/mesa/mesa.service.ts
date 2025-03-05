@@ -10,14 +10,14 @@ import { MesaType } from 'src/types/mesa.type';
 export class MesaService {
   constructor(
     @InjectRepository(Mesa) 
-    private readonly mesaService: Repository<Mesa>,
+    private readonly mesaServiceRepository: Repository<Mesa>,
   ) {}
 
   async createServiceMesa(createMesaDto: CreateMesaDto): Promise<MesaType> {
     try {
-      const mesa = this.mesaService.create(createMesaDto);
+      const mesa = this.mesaServiceRepository.create(createMesaDto);
 
-      await this.mesaService.save(mesa);
+      await this.mesaServiceRepository.save(mesa);
 
       return {
         message: 'Mesa criada com sucesso.',
@@ -28,8 +28,14 @@ export class MesaService {
     }
   }
 
-  findAll() {
-    return `This action returns all mesa`;
+  async findAllMesas(): Promise<Mesa[]> {
+    try{
+      const mesas = await this.mesaServiceRepository.find();
+
+      return mesas;
+    } catch(error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   findOne(id: number) {

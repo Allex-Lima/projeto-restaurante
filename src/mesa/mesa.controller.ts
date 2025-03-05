@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { MesaService } from './mesa.service';
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { UpdateMesaDto } from './dto/update-mesa.dto';
+import { Mesa } from './entities/mesa.entity';
 
 @Controller('mesa')
 export class MesaController {
@@ -15,8 +16,8 @@ export class MesaController {
   }
 
   @Get()
-  findAll() {
-    return this.mesaService.findAll();
+  findAll(): Promise<Mesa[]> {
+    return this.mesaService.findAllMesas();
   }
 
   @Get(':id')
