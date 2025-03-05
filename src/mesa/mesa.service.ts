@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { UpdateMesaDto } from './dto/update-mesa.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -38,8 +38,21 @@ export class MesaService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mesa`;
+  async findOneMesa(mesaCodigo: string): Promise<MesaType> {
+    try {
+      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+
+      if (!mesa) {
+        throw new NotFoundException(`Mesa (${mesaCodigo}) não encontrado.`);
+      }
+
+      return {
+        mesa
+      };
+
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   update(id: number, updateMesaDto: UpdateMesaDto) {

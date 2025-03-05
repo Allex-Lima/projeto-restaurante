@@ -20,9 +20,9 @@ export class MesaController {
     return this.mesaService.findAllMesas();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.mesaService.findOne(+id);
+  @Get(':mesaCodigo')
+  findOne(@Param('mesaCodigo') mesaCodigo: string) {
+    return this.mesaService.findOneMesa(mesaCodigo);
   }
 
   @Patch(':id')
