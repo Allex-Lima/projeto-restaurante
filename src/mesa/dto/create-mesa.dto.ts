@@ -1,10 +1,10 @@
-import { IsDateString, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateMesaDto {
 
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    mesaCodigo: string;
+    codigo: number;
 
     @IsString()
     mesaSituacao: string;

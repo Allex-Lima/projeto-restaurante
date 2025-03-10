@@ -38,12 +38,12 @@ export class MesaService {
     }
   }
 
-  async findOneMesa(mesaCodigo: string): Promise<MesaType> {
+  async findOneMesa(codigo: number): Promise<MesaType> {
     try {
-      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+      const mesa = await this.mesaServiceRepository.findOne({ where: { codigo } });
 
       if (!mesa) {
-        throw new NotFoundException(`Mesa (${mesaCodigo}) não encontrado.`);
+        throw new NotFoundException(`Mesa (${codigo}) não encontrado.`);
       }
 
       return {
