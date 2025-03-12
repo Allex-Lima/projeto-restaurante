@@ -21,7 +21,8 @@ import { VendaModule } from 'src/venda/venda.module';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: false,
+        migrations: ['dist/migrations/*.js'], // Ajuste para TypeScript se necessário: ['src/migrations/*.ts']
       }),
       inject: [ConfigService],
     }),

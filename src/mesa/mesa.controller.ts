@@ -20,9 +20,9 @@ export class MesaController {
     return this.mesaService.findAllMesas();
   }
 
-  @Get(':codigo')
-  async findOne(@Param('codigo', ParseIntPipe) codigo: number) {
-    return this.mesaService.findOneMesa(codigo);
+  @Get(':mesaCodigo')
+  async findOne(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
+    return this.mesaService.findOneMesa(mesaCodigo);
   }
 
   @Patch(':id')
