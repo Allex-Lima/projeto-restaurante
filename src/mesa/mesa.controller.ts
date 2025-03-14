@@ -25,9 +25,9 @@ export class MesaController {
     return this.mesaService.findOneMesa(mesaCodigo);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMesaDto: UpdateMesaDto) {
-    return this.mesaService.update(+id, updateMesaDto);
+  @Patch(':mesaCodigo')
+  async update(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number, @Body() updateMesaDto: UpdateMesaDto) {
+    return this.mesaService.updateMesa(mesaCodigo, updateMesaDto);
   }
 
   @Delete(':id')

@@ -55,8 +55,26 @@ export class MesaService {
     }
   }
 
-  update(id: number, updateMesaDto: UpdateMesaDto) {
-    return `This action updates a #${id} mesa`;
+  async updateMesa(mesaCodigo: number, updateMesaDto: UpdateMesaDto) {
+    try {
+      const mesa = await this.mesaServiceRepository.findOne({ where: {mesaCodigo } });
+
+      if (!mesa) {
+        throw new NotFoundException(`Mesa (${mesaCodigo}) não encontrada.`);
+      }
+      
+      await this.mesaServiceRepository.update(mesaCodigo, updateMesaDto);
+
+      const mesaAtualizada = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+
+      return {
+        message: 'Mesa atualizada',
+        mesaAtualizada
+      }
+
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   remove(id: number) {
