@@ -77,7 +77,22 @@ export class MesaService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mesa`;
+  async removeMesa(mesaCodigo: number): Promise<MesaType> {
+    try {
+      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+
+      if (!mesa) {
+        throw new NotFoundException(`Mesa ${mesaCodigo} não encontrada.`);
+      }
+
+      await this.mesaServiceRepository.remove(mesa);
+
+      return {
+        message: 'Mesa DELETADA com sucesso.',
+      }
+      
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }

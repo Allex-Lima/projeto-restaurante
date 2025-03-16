@@ -30,8 +30,8 @@ export class MesaController {
     return this.mesaService.updateMesa(mesaCodigo, updateMesaDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.mesaService.remove(+id);
+  @Delete(':mesaCodigo')
+  remove(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
+    return this.mesaService.removeMesa(mesaCodigo);
   }
 }
