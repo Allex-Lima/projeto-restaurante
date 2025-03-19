@@ -5,12 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Mesa } from './entities/mesa.entity';
 import { Repository } from 'typeorm';
 import { MesaType } from 'src/types/mesa.type';
+import { CheckIDService } from 'src/util/checkID/checkID.service';
 
 @Injectable()
 export class MesaService {
   constructor(
     @InjectRepository(Mesa) 
     private readonly mesaServiceRepository: Repository<Mesa>,
+    private readonly checkIDService: CheckIDService,
   ) {}
 
   async createServiceMesa(createMesaDto: CreateMesaDto): Promise<MesaType> {
@@ -40,11 +42,10 @@ export class MesaService {
 
   async findOneMesa(mesaCodigo: number): Promise<MesaType> {
     try {
-      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
 
-      if (!mesa) {
-        throw new NotFoundException(`Mesa (${mesaCodigo}) não encontrado.`);
-      }
+      await this.checkIDService.idExists(mesaCodigo, `Mesa com ID (${mesaCodigo}) não encontrada.`);
+
+      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
 
       return {
         mesa

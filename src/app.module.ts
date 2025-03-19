@@ -8,9 +8,11 @@ import { VendaModule } from './venda/venda.module';
 import { ProdutoModule } from './produto/produto.module';
 import { ItemVendaModule } from './item-venda/itemVenda.module';
 import { ComissaoModule } from './comissoes/comissao.module';
+import { CheckIDModule } from './util/checkID/checkID.module';
 
 @Module({
   imports: [
+    CheckIDModule,
     ComissaoModule,
     DatabaseModule,
     FuncionarioModule,
