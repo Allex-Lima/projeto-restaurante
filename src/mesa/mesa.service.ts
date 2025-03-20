@@ -58,12 +58,11 @@ export class MesaService {
 
   async updateMesa(mesaCodigo: number, updateMesaDto: UpdateMesaDto) {
     try {
+
+      await this.checkIDService.idExists(mesaCodigo, `Mesa ID (${mesaCodigo}) não encontrada, não pode ser atualizada.`);
+
       const mesa = await this.mesaServiceRepository.findOne({ where: {mesaCodigo } });
 
-      if (!mesa) {
-        throw new NotFoundException(`Mesa (${mesaCodigo}) não encontrada.`);
-      }
-      
       await this.mesaServiceRepository.update(mesaCodigo, updateMesaDto);
 
       const mesaAtualizada = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
@@ -80,11 +79,10 @@ export class MesaService {
 
   async removeMesa(mesaCodigo: number): Promise<MesaType> {
     try {
-      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+      
+      await this.checkIDService.idExists(mesaCodigo, `Mesa com ID (${mesaCodigo}) não existe, não pode ser deletada.`);
 
-      if (!mesa) {
-        throw new NotFoundException(`Mesa ${mesaCodigo} não encontrada.`);
-      }
+      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
 
       await this.mesaServiceRepository.remove(mesa);
 
