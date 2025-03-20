@@ -61,8 +61,6 @@ export class MesaService {
 
       await this.checkIDService.idExists(mesaCodigo, `Mesa ID (${mesaCodigo}) não encontrada, não pode ser atualizada.`);
 
-      const mesa = await this.mesaServiceRepository.findOne({ where: {mesaCodigo } });
-
       await this.mesaServiceRepository.update(mesaCodigo, updateMesaDto);
 
       const mesaAtualizada = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
@@ -79,7 +77,7 @@ export class MesaService {
 
   async removeMesa(mesaCodigo: number): Promise<MesaType> {
     try {
-      
+
       await this.checkIDService.idExists(mesaCodigo, `Mesa com ID (${mesaCodigo}) não existe, não pode ser deletada.`);
 
       const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
