@@ -1,7 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Funcionario } from "./entities/funcionario.entity";
 import { Repository } from "typeorm";
+import { CreateFuncionarioDto } from "./dto/create-funcionario.dto";
+import { FuncionarioType } from "src/types/funcionario.type";
 
 @Injectable()
 export class FuncionarioService {
@@ -10,8 +12,19 @@ export class FuncionarioService {
         private readonly funcionarioRepository: Repository<Funcionario>,
     ) {}
 
-    createFuncionario() {
-        return 'Está ação adiciona um novo funcionário.';
+    async createServiceFuncionario(createFuncionarioDto: CreateFuncionarioDto): Promise<FuncionarioType> {
+        try {
+            const createFuncionario = this.funcionarioRepository.create(createFuncionarioDto);
+            
+            const funcionario = await this.funcionarioRepository.save(createFuncionario);
+
+            return {
+                message: 'Funcionário criado com sucesso.',
+                funcionario
+            }
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 
     async findAllFincionario(): Promise<Funcionario []> {
