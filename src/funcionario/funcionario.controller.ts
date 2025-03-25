@@ -9,7 +9,7 @@ export class FuncionarioController {
 
     @Post()
     async create(@Body() createFuncionarioDto: CreateFuncionarioDto) {
-        return ;
+        return this.funcionarioService.createServiceFuncionario(createFuncionarioDto);
     }
 
     @Get()
