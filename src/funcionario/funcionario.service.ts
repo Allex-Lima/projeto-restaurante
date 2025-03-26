@@ -27,8 +27,14 @@ export class FuncionarioService {
         }
     }
 
-    async findAllFincionario(): Promise<Funcionario []> {
-        return await this.funcionarioRepository.find();
+    async findAllFuncionario(): Promise<Funcionario []> {
+        try {
+            const funcionarios = await this.funcionarioRepository.find();
+
+            return funcionarios;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 
     findOneFuncionario(funcionarioCodigo: string) {

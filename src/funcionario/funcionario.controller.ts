@@ -14,7 +14,7 @@ export class FuncionarioController {
 
     @Get()
     async findAll() {
-        return this.funcionarioService.findAllFincionario();
+        return await this.funcionarioService.findAllFuncionario();
     }
 
     @Get(':funcionarioCodigo')
