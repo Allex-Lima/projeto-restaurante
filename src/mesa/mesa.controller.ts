@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, Req } from '@nestjs/common';
 import { MesaService } from './mesa.service';
 import { CreateMesaDto } from './dto/create-mesa.dto';
 import { UpdateMesaDto } from './dto/update-mesa.dto';
 import { Mesa } from './entities/mesa.entity';
+import { Request } from 'express';
 
 @Controller('mesa')
 export class MesaController {
@@ -21,17 +22,17 @@ export class MesaController {
   }
 
   @Get(':mesaCodigo')
-  async findOne(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
-    return this.mesaService.findOneMesa(mesaCodigo);
+  async findOne(@Req() req: Request, @Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
+    return await this.mesaService.findOneMesa(req, mesaCodigo);
   }
 
   @Patch(':mesaCodigo')
-  async update(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number, @Body() updateMesaDto: UpdateMesaDto) {
-    return this.mesaService.updateMesa(mesaCodigo, updateMesaDto);
+  async update(@Req() req: Request, @Param('mesaCodigo', ParseIntPipe) mesaCodigo: number, @Body() updateMesaDto: UpdateMesaDto) {
+    return this.mesaService.updateMesa(req, mesaCodigo, updateMesaDto);
   }
 
   @Delete(':mesaCodigo')
-  remove(@Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
-    return this.mesaService.removeMesa(mesaCodigo);
+  remove(@Req() req: Request, @Param('mesaCodigo', ParseIntPipe) mesaCodigo: number) {
+    return this.mesaService.removeMesa(req, mesaCodigo);
   }
 }

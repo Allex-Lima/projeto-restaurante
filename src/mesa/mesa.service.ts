@@ -40,10 +40,16 @@ export class MesaService {
     }
   }
 
-  async findOneMesa(mesaCodigo: number): Promise<MesaType> {
+  async findOneMesa(req: any, mesaCodigo: number): Promise<MesaType> {
     try {
 
-      await this.checkIDService.idExists(mesaCodigo, `Mesa com ID (${mesaCodigo}) não encontrada.`);
+      const paramRota = req.path;
+      
+      await this.checkIDService.idExists(
+        paramRota,
+        mesaCodigo,
+        `- Mesa com ID (${mesaCodigo}) não encontrada.`
+      );
 
       const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
 
@@ -56,10 +62,15 @@ export class MesaService {
     }
   }
 
-  async updateMesa(mesaCodigo: number, updateMesaDto: UpdateMesaDto) {
+  async updateMesa(req: any, mesaCodigo: number, updateMesaDto: UpdateMesaDto) {
     try {
+      const paramRota = req.path;
 
-      await this.checkIDService.idExists(mesaCodigo, `Mesa ID (${mesaCodigo}) não encontrada, não pode ser atualizada.`);
+      await this.checkIDService.idExists(
+        paramRota,
+        mesaCodigo,
+        `Mesa ID (${mesaCodigo}) não encontrada, não pode ser atualizada.`
+      );
 
       await this.mesaServiceRepository.update(mesaCodigo, updateMesaDto);
 
@@ -75,10 +86,15 @@ export class MesaService {
     }
   }
 
-  async removeMesa(mesaCodigo: number): Promise<MesaType> {
+  async removeMesa(req: any, mesaCodigo: number): Promise<MesaType> {
     try {
+      const paramRota = req.path;
 
-      await this.checkIDService.idExists(mesaCodigo, `Mesa com ID (${mesaCodigo}) não existe, não pode ser deletada.`);
+      await this.checkIDService.idExists(
+        paramRota,
+        mesaCodigo,
+        `Mesa com ID (${mesaCodigo}) não existe, não pode ser deletada.`
+      );
 
       const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
 

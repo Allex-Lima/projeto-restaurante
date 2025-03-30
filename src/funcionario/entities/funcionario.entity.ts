@@ -9,7 +9,7 @@ export class Funcionario {
     id: number;
 
     @Column()
-    funcionarioCodigo: string;
+    funcionarioCodigo: number;
 
     @Column()
     funcionarioNome: string;
