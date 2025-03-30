@@ -1,8 +1,9 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Funcionario } from "./entities/funcionario.entity";
 import { FuncionarioController } from "./funcionario.controller";
 import { FuncionarioService } from "./funcionario.service";
+import { IdCheckMiddleware } from "src/middlewares/id-check.middleware";
 
 
 @Module({
@@ -10,4 +11,11 @@ import { FuncionarioService } from "./funcionario.service";
     controllers: [FuncionarioController],
     providers: [FuncionarioService],
 })
-export class FuncionarioModule { }
+export class FuncionarioModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(IdCheckMiddleware).forRoutes({
+            path:'funcionario/:codigo',
+            method: RequestMethod.ALL,
+        })
+    }
+}

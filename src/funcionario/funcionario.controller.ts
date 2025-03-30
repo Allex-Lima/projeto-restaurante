@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req } from "@nestjs/common";
 import { FuncionarioService } from "./funcionario.service";
 import { CreateFuncionarioDto } from "./dto/create-funcionario.dto";
 import { UpdateFuncionarioDto } from "./dto/update-funcionario.dto";
+import { Request } from 'express';
 
 @Controller('funcionario')
 export class FuncionarioController {
@@ -18,17 +19,26 @@ export class FuncionarioController {
     }
 
     @Get(':funcionarioCodigo')
-    async findOne(@Param('funcionarioCodigo') funcionarioCodigo: string) {
-        return this.funcionarioService.findOneFuncionario(funcionarioCodigo);
+    async findOne(
+        @Req() req: Request,
+        @Param('funcionarioCodigo', ParseIntPipe) funcionarioCodigo: number
+    ) {
+        return this.funcionarioService.findOneFuncionario(req, funcionarioCodigo);
     }
 
     @Patch(':funcionarioCodigo')
-    async update(@Param('FuncionarioCodigo') funcionarioCodigo: string, @Body() body: UpdateFuncionarioDto) {
+    async update(
+        @Req() req: Request,
+        @Param('FuncionarioCodigo') funcionarioCodigo: string,
+        @Body() body: UpdateFuncionarioDto
+    ) {
         return '';
     }
 
     @Delete(':funcionarioCodigo')
-    async remove(@Param(':funcionarioCodigo') funcionarioCodigo: string) {
+    async remove(
+        @Req() req: Request,
+        @Param(':funcionarioCodigo') funcionarioCodigo: string) {
         return '';
     }
 }

@@ -4,12 +4,15 @@ import { Funcionario } from "./entities/funcionario.entity";
 import { Repository } from "typeorm";
 import { CreateFuncionarioDto } from "./dto/create-funcionario.dto";
 import { FuncionarioType } from "src/types/funcionario.type";
+import { CheckIDService } from "src/util/checkID/checkID.service";
+import { Request } from 'express';
 
 @Injectable()
 export class FuncionarioService {
     constructor(
         @InjectRepository(Funcionario)
         private readonly funcionarioRepository: Repository<Funcionario>,
+        private readonly checkIDService: CheckIDService,
     ) {}
 
     async createServiceFuncionario(createFuncionarioDto: CreateFuncionarioDto): Promise<FuncionarioType> {
@@ -37,8 +40,24 @@ export class FuncionarioService {
         }
     }
 
-    findOneFuncionario(funcionarioCodigo: string) {
-        return 'Está ação retorna um único funcionário.';
+    async findOneFuncionario(req: any, funcionarioCodigo: number) {
+        try {
+            const paramRota = req.path;
+            
+            await this.checkIDService.idExists(
+                paramRota,
+                funcionarioCodigo,
+                `Funcionário com ID (${funcionarioCodigo}) não encontrado.`
+            );
+
+            const funcionario = await this.funcionarioRepository.findOne({
+                where: { funcionarioCodigo }
+            });
+
+            return funcionario;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 
     updateFuncionario() {

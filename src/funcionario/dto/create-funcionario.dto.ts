@@ -3,9 +3,9 @@ import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } f
 
 export class CreateFuncionarioDto {
     
-    @IsString()
+    @IsNumber()
     @IsNotEmpty()
-    funcionarioCodigo: string;
+    funcionarioCodigo: number;
 
     @IsString()
     @MinLength(3, {message: 'Nome deve ter pelo menos 3 caracteres.'})
