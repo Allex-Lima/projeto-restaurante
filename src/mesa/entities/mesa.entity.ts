@@ -8,7 +8,7 @@ export class Mesa {
     id: number;
 
     @Column()
-    mesaCodigo: number;
+    codigo: number;
 
     @Column({default: 'A'})
     mesaSituacao: string;

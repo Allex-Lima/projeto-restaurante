@@ -27,7 +27,10 @@ export class MesaController {
   }
 
   @Patch(':mesaCodigo')
-  async update(@Req() req: Request, @Param('mesaCodigo', ParseIntPipe) mesaCodigo: number, @Body() updateMesaDto: UpdateMesaDto) {
+  async update(
+    @Req() req: Request,
+    @Param('mesaCodigo', ParseIntPipe) mesaCodigo: number,
+    @Body() updateMesaDto: UpdateMesaDto) {
     return this.mesaService.updateMesa(req, mesaCodigo, updateMesaDto);
   }
 

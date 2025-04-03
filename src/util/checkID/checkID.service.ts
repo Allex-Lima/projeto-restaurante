@@ -14,11 +14,11 @@ export class CheckIDService {
         private readonly checkIDServiceRepositoryFuncionario: Repository<Funcionario>,
     ) { }
 
-    async idExists(paramRota: string, id: number, msn: string): Promise<void> {
+    async idExists(paramRota: string, codigo: number, msn: string): Promise<void> {
         
         if (paramRota.includes('funcionario')) {
             const funcionario = await this.checkIDServiceRepositoryFuncionario.findOne({
-                where: { id }
+                where: { codigo }
             });
             
             if (!funcionario) {
@@ -28,9 +28,9 @@ export class CheckIDService {
 
         if (paramRota.includes('mesa')) {
             const mesa = await this.checkIDServiceRepository.findOne({
-                where: { id }
+                where: { codigo }
             });
-
+            
             if (!mesa) {
                 throw new NotFoundException(msn);
             }

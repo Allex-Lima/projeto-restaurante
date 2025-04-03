@@ -5,7 +5,7 @@ export class CreateFuncionarioDto {
     
     @IsNumber()
     @IsNotEmpty()
-    funcionarioCodigo: number;
+    codigo: number;
 
     @IsString()
     @MinLength(3, {message: 'Nome deve ter pelo menos 3 caracteres.'})

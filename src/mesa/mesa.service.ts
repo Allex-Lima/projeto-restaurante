@@ -40,18 +40,18 @@ export class MesaService {
     }
   }
 
-  async findOneMesa(req: any, mesaCodigo: number): Promise<MesaType> {
+  async findOneMesa(req: any, codigo: number): Promise<MesaType> {
     try {
 
       const paramRota = req.path;
       
       await this.checkIDService.idExists(
         paramRota,
-        mesaCodigo,
-        `- Mesa com ID (${mesaCodigo}) não encontrada.`
+        codigo,
+        `- Mesa com ID (${codigo}) não encontrada.`
       );
 
-      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+      const mesa = await this.mesaServiceRepository.findOne({ where: { codigo } });
 
       return {
         mesa
@@ -62,19 +62,19 @@ export class MesaService {
     }
   }
 
-  async updateMesa(req: any, mesaCodigo: number, updateMesaDto: UpdateMesaDto) {
+  async updateMesa(req: any, codigo: number, updateMesaDto: UpdateMesaDto) {
     try {
       const paramRota = req.path;
 
       await this.checkIDService.idExists(
         paramRota,
-        mesaCodigo,
-        `Mesa ID (${mesaCodigo}) não encontrada, não pode ser atualizada.`
+        codigo,
+        `Mesa ID (${codigo}) não encontrada, não pode ser atualizada.`
       );
-
-      await this.mesaServiceRepository.update(mesaCodigo, updateMesaDto);
-
-      const mesaAtualizada = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+      
+      await this.mesaServiceRepository.update({ codigo }, updateMesaDto);
+      
+      const mesaAtualizada = await this.mesaServiceRepository.findOne({ where: { codigo } });
 
       return {
         message: 'Mesa atualizada',
@@ -86,17 +86,17 @@ export class MesaService {
     }
   }
 
-  async removeMesa(req: any, mesaCodigo: number): Promise<MesaType> {
+  async removeMesa(req: any, codigo: number): Promise<MesaType> {
     try {
       const paramRota = req.path;
 
       await this.checkIDService.idExists(
         paramRota,
-        mesaCodigo,
-        `Mesa com ID (${mesaCodigo}) não existe, não pode ser deletada.`
+        codigo,
+        `Mesa com ID (${codigo}) não existe, não pode ser deletada.`
       );
 
-      const mesa = await this.mesaServiceRepository.findOne({ where: { mesaCodigo } });
+      const mesa = await this.mesaServiceRepository.findOne({ where: { codigo } });
 
       await this.mesaServiceRepository.remove(mesa);
 
