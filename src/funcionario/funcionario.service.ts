@@ -40,18 +40,18 @@ export class FuncionarioService {
         }
     }
 
-    async findOneFuncionario(req: any, funcionarioCodigo: number) {
+    async findOneFuncionario(req: any, codigo: number) {
         try {
             const paramRota = req.path;
             
             await this.checkIDService.idExists(
                 paramRota,
-                funcionarioCodigo,
-                `Funcionário com ID (${funcionarioCodigo}) não encontrado.`
+                codigo,
+                `Funcionário com ID (${codigo}) não encontrado.`
             );
 
             const funcionario = await this.funcionarioRepository.findOne({
-                where: { funcionarioCodigo }
+                where: { codigo }
             });
 
             return funcionario;

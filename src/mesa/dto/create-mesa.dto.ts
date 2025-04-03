@@ -4,7 +4,7 @@ export class CreateMesaDto {
 
     @IsNumber()
     @IsNotEmpty()
-    mesaCodigo: number;
+    codigo: number;
 
     @IsString()
     mesaSituacao: string;
