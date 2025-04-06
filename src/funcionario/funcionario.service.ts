@@ -90,7 +90,28 @@ export class FuncionarioService {
         }
     }
 
-    removeFuncionario() {
-        return 'Está ação remove um único funcionário.';
+    async removeFuncionario(req: Request, codigo: number): Promise<FuncionarioType> {
+        try {
+            const paramRota = req.path;
+
+            await this.checkIDService.idExists(
+                paramRota,
+                codigo,
+                `Funcionário com ID (${codigo}) não existe, não pode ser deletada.`
+            );
+            
+            const funcionario = await this.funcionarioRepository.findOne({
+                where: {codigo}
+            });
+
+            await this.funcionarioRepository.remove(funcionario);
+
+            return {
+                message: 'Funcionário deletado com sucesso.',
+            };
+
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 }

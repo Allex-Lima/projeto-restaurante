@@ -38,7 +38,7 @@ export class FuncionarioController {
     @Delete(':funcionarioCodigo')
     async remove(
         @Req() req: Request,
-        @Param(':funcionarioCodigo') funcionarioCodigo: string) {
-        return '';
+        @Param('funcionarioCodigo', ParseIntPipe) funcionarioCodigo: number) {
+        return await this.funcionarioService.removeFuncionario(req, funcionarioCodigo);
     }
 }
