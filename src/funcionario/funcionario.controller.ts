@@ -29,10 +29,10 @@ export class FuncionarioController {
     @Patch(':funcionarioCodigo')
     async update(
         @Req() req: Request,
-        @Param('FuncionarioCodigo') funcionarioCodigo: string,
+        @Param('funcionarioCodigo', ParseIntPipe) funcionarioCodigo: number,
         @Body() body: UpdateFuncionarioDto
     ) {
-        return '';
+        return await this.funcionarioService.updateFuncionario(req, funcionarioCodigo, body);
     }
 
     @Delete(':funcionarioCodigo')
