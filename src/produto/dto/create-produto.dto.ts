@@ -3,8 +3,8 @@ import { IsDateString, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateProdutoDto {
 
-    @IsString()
-    produtoCodigo: string;
+    @IsNumber()
+    codigo: number;
 
     @IsString()
     produtoNome: string;

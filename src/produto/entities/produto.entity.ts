@@ -8,7 +8,7 @@ export class Produto {
     id: number;
 
     @Column()
-    produtoCodigo: string;
+    codigo: number;
 
     @Column()
     produtoNome: string;
