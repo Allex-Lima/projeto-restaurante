@@ -19,7 +19,7 @@ export class CreateProdutoDto {
     @IsDateString()
     dataCriacao?: Date;
 
-    @IsDateString()
+    @IsOptional()
     @IsDateString()
     dataAtualizacao?: Date;
 }
