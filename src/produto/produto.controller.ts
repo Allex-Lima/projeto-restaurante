@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ProdutoService } from "./produto.service";
 import { CreateProdutoDto } from "./dto/create-produto.dto";
 
@@ -11,5 +11,10 @@ export class ProdutoController {
     @Post()
     async create(@Body() createProdutoDto: CreateProdutoDto) {
         return this.produtoService.createProduto(createProdutoDto);
+    }
+
+    @Get()
+    async findAll() {
+        return this.produtoService.findAllProdutos();
     }
 }
