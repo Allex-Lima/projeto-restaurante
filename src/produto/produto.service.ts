@@ -30,6 +30,12 @@ export class ProdutoService {
     }
 
     async findAllProdutos(): Promise<Produto []> {
-        return await this.produtoRepository.find();
+        try {
+            const produtos = await this.produtoRepository.find();
+
+            return produtos;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
     }
 }
