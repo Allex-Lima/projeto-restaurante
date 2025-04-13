@@ -7,7 +7,7 @@ export class IdCheckMiddleware {
     const cod = (isNaN(Number(req.params.codigo))) || (Number(req.params.codigo)) <= 0;
 
     if (cod) {
-        throw new BadRequestException('ID INVÁLIDO.');
+        throw new BadRequestException(`ID (${req.params.codigo}) INVÁLIDO.`);
     }
     next()
    }
