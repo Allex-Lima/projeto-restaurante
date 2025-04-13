@@ -1,8 +1,9 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Produto } from "./entities/produto.entity";
 import { ProdutoService } from "./produto.service";
 import { ProdutoController } from "./produto.controller";
+import { IdCheckMiddleware } from "src/middlewares/id-check.middleware";
 
 
 @Module({
@@ -10,4 +11,11 @@ import { ProdutoController } from "./produto.controller";
     controllers: [ProdutoController],
     providers: [ProdutoService],
 })
-export class ProdutoModule { }
+export class ProdutoModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(IdCheckMiddleware).forRoutes({
+            path: 'produtos/:codigo',
+            method: RequestMethod.ALL,
+        })
+    }
+}
