@@ -6,6 +6,7 @@ import { CreateProdutoDto } from "./dto/create-produto.dto";
 import { ProdutoType } from "src/types/produto.type";
 import { Request } from "express";
 import { CheckIDService } from "../util/checkID/checkID.service"
+import { updateProdutoDto } from "./dto/update-produto.dto";
 
 
 @Injectable()
@@ -57,6 +58,36 @@ export class ProdutoService {
             })
 
             return produto;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async updateProduto(req: Request, codigo: number, body: updateProdutoDto): Promise<ProdutoType> {
+        try {
+            const paramRota = req.path;
+
+            await this.checkIDService.idExists(
+                paramRota,
+                codigo,
+                `Produto não atualizado.`
+            );
+
+            const resultadoDaAtualizacao = await this.produtoRepository.update({ codigo }, body);
+
+            if (resultadoDaAtualizacao.affected === 0) {
+                throw new BadRequestException(`Nunhuma atualização foi realizada para o ID ${(codigo)}.`);
+            }
+
+            const produto = await this.produtoRepository.findOne({
+                where: { codigo },
+            })
+
+            return {
+                message: `Produto atualizado com sucesso.`,
+                produto
+            };
+
         } catch (error) {
             throw new BadRequestException(error.message);
         }
