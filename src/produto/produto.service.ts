@@ -92,4 +92,29 @@ export class ProdutoService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async removeProduto(req: Request, codigo: number): Promise<ProdutoType> {
+        try {
+            const paramRota = req.path;
+
+            await this.checkIDService.idExists(
+                paramRota,
+                codigo,
+                `Produto com ID (${codigo}) não foi encontrado, conseguentimente não deletado.`
+            );
+
+            const produtoEncontrado = await this.produtoRepository.findOne({
+                where: { codigo }
+            });
+
+            await this.produtoRepository.remove(produtoEncontrado);
+
+            return {
+                message: `Produto deletado com sucesso.`,
+            }
+
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }
