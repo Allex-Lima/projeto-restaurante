@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Req } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req } from "@nestjs/common";
 import { ProdutoService } from "./produto.service";
 import { CreateProdutoDto } from "./dto/create-produto.dto";
 import { Request } from "express";
@@ -33,5 +33,12 @@ export class ProdutoController {
         @Param('codigo', ParseIntPipe) codigo: number,
         @Body() body: updateProdutoDto) {
             return await this.produtoService.updateProduto(req, codigo, body);
+    }
+
+    @Delete(':codigo')
+    async remove(
+        @Req() req: Request,
+        @Param('codigo', ParseIntPipe) codigo: number) {
+            return await this.produtoService.removeProduto(req, codigo);
     }
 }
