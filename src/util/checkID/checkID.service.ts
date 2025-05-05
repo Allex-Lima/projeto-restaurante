@@ -51,7 +51,7 @@ export class CheckIDService {
                 throw new NotFoundException(msn);
             }
         }
-        
+        let vendaCodigo = codigo;
         if (paramRota.includes('venda')) {
             const venda = await this.checkIdServiceRepositoryVenda.findOne({
                 where: { vendaCodigo }

@@ -8,8 +8,8 @@ export class CreateVendaDto {
     @IsNumber()
     mesaId: number;
 
-    @IsString()
-    vendaCodigo: string;
+    @IsNumber()
+    vendaCodigo: number;
 
     @IsNumber()
     vendaValor: number;

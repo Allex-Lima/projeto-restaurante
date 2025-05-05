@@ -17,7 +17,7 @@ export class Venda {
     mesaId: number;
 
     @Column()
-    vendaCodigo: string;
+    vendaCodigo: number;
 
     @Column()
     vendaValor: number;

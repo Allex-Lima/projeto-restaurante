@@ -15,6 +15,6 @@ export const dataSource = new DataSource({
   password: configService.password,
   database: configService.database,
   entities: ['dist/**/*.entity.js'], // Ajuste para TypeScript se necessário: ['src/**/*.entity.ts']
-  migrations: ['dist/migrations/*.js'], // Ajuste para TypeScript se necessário: ['src/migrations/*.ts']
+  migrations: ['src/migrations/*.js'], // Ajuste para TypeScript se necessário: ['src/migrations/*.ts']
   synchronize: false, // Nunca use "true" em produção!
 });
