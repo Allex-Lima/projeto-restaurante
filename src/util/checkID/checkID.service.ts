@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Funcionario } from "src/funcionario/entities/funcionario.entity";
 import { Mesa } from "src/mesa/entities/mesa.entity";
 import { Produto } from "src/produto/entities/produto.entity";
+import { Venda } from "src/venda/entities/venda.entity";
 import { Repository } from "typeorm";
 
 
@@ -15,6 +16,8 @@ export class CheckIDService {
         private readonly checkIDServiceRepositoryFuncionario: Repository<Funcionario>,
         @InjectRepository(Produto)
         private readonly checkIdServiceRepositoryProduto: Repository<Produto>,
+        @InjectRepository(Venda)
+        private readonly checkIdServiceRepositoryVenda: Repository<Venda>,
     ) { }
 
     async idExists(paramRota: string, codigo: number, msn: string): Promise<void> {
@@ -45,6 +48,16 @@ export class CheckIDService {
             });
             
             if (!produto) {
+                throw new NotFoundException(msn);
+            }
+        }
+        
+        if (paramRota.includes('venda')) {
+            const venda = await this.checkIdServiceRepositoryVenda.findOne({
+                where: { vendaCodigo }
+            });
+
+            if (!venda) {
                 throw new NotFoundException(msn);
             }
         }
