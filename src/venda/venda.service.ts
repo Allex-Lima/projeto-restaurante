@@ -28,5 +28,18 @@ export class vendaService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async findAllVendaService(): Promise<Venda []> {
+        try {
+            const vendas = await this.vendaRepository.find();
+            console.log(vendas);
+            
+
+            return vendas;
+            
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
     
 }
