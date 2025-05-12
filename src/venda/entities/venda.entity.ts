@@ -1,7 +1,7 @@
 import { Funcionario } from "src/funcionario/entities/funcionario.entity";
 import { ItemVenda } from "src/item-venda/entities/itemVenda.entity";
 import { Mesa } from "src/mesa/entities/mesa.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 
 @Entity('vendas')

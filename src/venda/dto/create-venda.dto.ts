@@ -15,7 +15,7 @@ export class CreateVendaDto {
     vendaValor: number;
 
     @IsNumber()
-    VendaTotal: number;
+    vendaTotal: number;
 
     @IsNumber()
     vendaDesconto: number;
