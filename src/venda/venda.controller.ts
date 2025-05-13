@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Req } from "@nestjs/common";
 import { vendaService } from "./venda.service";
 import { CreateVendaDto } from "./dto/create-venda.dto";
 import { VendaType } from "src/types/venda.type";
 import { Venda } from "./entities/venda.entity";
+import { Request } from "express";
 
 
 @Controller('venda')
@@ -19,5 +20,12 @@ export class VendaController {
     @Get()
     async findAll() {
         return await this.vendaService.findAllVendaService();
+    }
+
+    @Get(':codigo')
+    async find(
+        @Param('codigo', ParseIntPipe) codigo: number,
+        @Req() req: Request ) {
+        return this.vendaService.findVendaService(req, codigo);
     }
 }
