@@ -4,13 +4,16 @@ import { Venda } from "./entities/venda.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateVendaDto } from "./dto/create-venda.dto";
 import { VendaType } from "src/types/venda.type";
+import { Request } from "express";
+import { CheckIDService } from "src/util/checkID/checkID.service";
 
 
 @Injectable()
 export class vendaService {
     constructor(
         @InjectRepository(Venda)
-         private readonly vendaRepository: Repository<Venda>
+         private readonly vendaRepository: Repository<Venda>,
+         private readonly checkIDService: CheckIDService,
     ) {}
 
     async createVendaService(createVenda: CreateVendaDto): Promise<VendaType> {
@@ -37,6 +40,29 @@ export class vendaService {
 
             return vendas;
             
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async findVendaService(req: Request, codigo: number) {
+        try {
+            const paramRota = req.path;
+
+            await this.checkIDService.idExists(
+                paramRota,
+                codigo,
+                `Produto com ID (${codigo}) não encontrado.`
+            );
+
+            const vendaCodigo = codigo;
+
+            const venda = await this.vendaRepository.findOne({
+                where: { vendaCodigo }
+            });
+
+            return venda;
+
         } catch (error) {
             throw new BadRequestException(error.message);
         }
