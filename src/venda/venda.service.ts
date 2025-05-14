@@ -6,6 +6,7 @@ import { CreateVendaDto } from "./dto/create-venda.dto";
 import { VendaType } from "src/types/venda.type";
 import { Request } from "express";
 import { CheckIDService } from "src/util/checkID/checkID.service";
+import { UpdateVendaDto } from "./dto/update-venda.dto";
 
 
 @Injectable()
@@ -63,6 +64,35 @@ export class vendaService {
 
             return venda;
 
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async updateVendaService(req: Request, vendaCodigo: number, updateVendaDto: UpdateVendaDto): Promise<VendaType> {
+        try {
+            const paramRota = req.path;
+
+            await this.checkIDService.idExists(
+                paramRota,
+                vendaCodigo,
+                `Venda não atualizada.`,
+            );
+
+            const vendaAtualizada = await this.vendaRepository.update({ vendaCodigo }, updateVendaDto);
+
+            if (vendaAtualizada.affected === 0) {
+                throw new BadRequestException(`Nenhuma atualização foi realizada no ID (${vendaCodigo})`)
+            }
+
+            const venda = await this.vendaRepository.findOne(
+                { where: {vendaCodigo } }
+            );
+
+            return {
+                message: 'Atualizada com sucesso.',
+                venda,
+            }
         } catch (error) {
             throw new BadRequestException(error.message);
         }
